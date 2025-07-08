@@ -12,26 +12,11 @@ jobs:
     steps:
       - name: Downloading & Installing Essentials
         run: |
-          Invoke-WebRequest -Uri "https://gitlab.com/chamod12/lm_win-10_github_rdp/-/raw/main/Downloads.bat" -OutFile "Downloads.bat"
+          Invoke-WebRequest -Uri â€œhttps://gitlab.com/chamod12/lm_win-10_github_rdp/-/raw/main/Downloads.batâ€‌ -OutFile â€œDownloads.batâ€‌
           cmd /c Downloads.bat
 
-      - name: Run show.bat and capture output
-        id: show
-        run: |
-          $output = cmd /c show.bat
-          echo "$output" > show_output.txt
-          echo "OUTPUT<<EOF" >> $GITHUB_ENV
-          echo "$output" >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
+      - name: TECHNOVISION 
+        run: cmd /c show.bat
 
-      - name: Send result to Telegram
-        run: |
-          $body = @{
-            chat_id = "8061618834"
-            text = "${{ env.OUTPUT }}"
-            parse_mode = "Markdown"
-          }
-          Invoke-RestMethod -Uri "https://api.telegram.org/bot7830866605:AAF0PkXPNcESAfidwqBqWTvbtSDlPybEOSw/sendMessage" -Method POST -Body $body
-
-      - name: like and subscribe
+      - name: like and subscribe 
         run: cmd /c loop.bat
